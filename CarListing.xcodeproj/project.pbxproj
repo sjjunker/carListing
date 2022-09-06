@@ -8,17 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		963BC9AA28C6974900AF009C /* CarListingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963BC9A928C6974900AF009C /* CarListingApp.swift */; };
-		963BC9AC28C6974900AF009C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963BC9AB28C6974900AF009C /* ContentView.swift */; };
+		963BC9AC28C6974900AF009C /* CarListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963BC9AB28C6974900AF009C /* CarListView.swift */; };
 		963BC9AE28C6974B00AF009C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 963BC9AD28C6974B00AF009C /* Assets.xcassets */; };
 		963BC9B128C6974B00AF009C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 963BC9B028C6974B00AF009C /* Preview Assets.xcassets */; };
+		963BC9BD28C74E9900AF009C /* car_list.json in Resources */ = {isa = PBXBuildFile; fileRef = 963BC9BC28C74E9900AF009C /* car_list.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		963BC9A628C6974900AF009C /* CarListing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CarListing.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		963BC9A928C6974900AF009C /* CarListingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarListingApp.swift; sourceTree = "<group>"; };
-		963BC9AB28C6974900AF009C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		963BC9AB28C6974900AF009C /* CarListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarListView.swift; sourceTree = "<group>"; };
 		963BC9AD28C6974B00AF009C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		963BC9B028C6974B00AF009C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		963BC9BC28C74E9900AF009C /* car_list.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = car_list.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,7 +54,10 @@
 			isa = PBXGroup;
 			children = (
 				963BC9A928C6974900AF009C /* CarListingApp.swift */,
-				963BC9AB28C6974900AF009C /* ContentView.swift */,
+				963BC9BA28C74D4D00AF009C /* Views */,
+				963BC9B928C74D4400AF009C /* ViewModels */,
+				963BC9B828C74D3300AF009C /* Models */,
+				963BC9BB28C74E1E00AF009C /* Resources */,
 				963BC9AD28C6974B00AF009C /* Assets.xcassets */,
 				963BC9AF28C6974B00AF009C /* Preview Content */,
 			);
@@ -65,6 +70,36 @@
 				963BC9B028C6974B00AF009C /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		963BC9B828C74D3300AF009C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		963BC9B928C74D4400AF009C /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		963BC9BA28C74D4D00AF009C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				963BC9AB28C6974900AF009C /* CarListView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		963BC9BB28C74E1E00AF009C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				963BC9BC28C74E9900AF009C /* car_list.json */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -126,6 +161,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				963BC9B128C6974B00AF009C /* Preview Assets.xcassets in Resources */,
+				963BC9BD28C74E9900AF009C /* car_list.json in Resources */,
 				963BC9AE28C6974B00AF009C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -137,7 +173,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				963BC9AC28C6974900AF009C /* ContentView.swift in Sources */,
+				963BC9AC28C6974900AF009C /* CarListView.swift in Sources */,
 				963BC9AA28C6974900AF009C /* CarListingApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
