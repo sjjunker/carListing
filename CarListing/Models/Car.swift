@@ -7,8 +7,9 @@
 
 import Foundation
 
-struct Car: Decodable {
+class Car: Decodable, Identifiable {
     
+    var id: UUID?
     var image: String?
     var consList: [String]?
     var customerPrice: Double?

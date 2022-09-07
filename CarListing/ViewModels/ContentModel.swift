@@ -6,11 +6,17 @@
 //
 
 import Foundation
+import SwiftUI
 
 class ContentModel: ObservableObject {
     
     @Published var cars = [Car]()
     
+    init() {
+        getLocalData()
+    }
+    
+    //MARK: Parse the Data
     func getLocalData() {
         
         //Get a url to the json file
@@ -22,13 +28,32 @@ class ContentModel: ObservableObject {
             
             //Try to decode the json into an array of cars
             let jsonDecoder = JSONDecoder()
-            let cars = try jsonDecoder.decode([Car].self, from: jsonData)
             
-            //Assign parsed cars to cars property
-            self.cars = cars
-            
+            do {
+                let cars = try jsonDecoder.decode([Car].self, from: jsonData)
+                
+                //Assign ids to each car
+                for car in cars {
+                    car.id = UUID()
+                }
+                
+                //Assign parsed cars to cars property
+                self.cars = cars
+            } catch {
+                print(error)
+            }
         } catch {
-            print("Couldn't parse local data.")
+            print(error)
         }
+    }
+    
+    //MARK: Format currency
+    func carPrice(price: Double) -> String {
+        
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .currency
+        let formattedNumber = numberFormatter.string(from: NSNumber(value: price))
+        return formattedNumber ?? ""
+        
     }
 }

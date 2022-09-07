@@ -8,14 +8,26 @@
 import SwiftUI
 
 struct CarListView: View {
+    @EnvironmentObject var model: ContentModel
+    
     var body: some View {
-        Text("My first REAL app. Done by myself.")
-            .padding()
+        
+        VStack {
+            Text("Car Listing")
+                .font(.title)
+                .bold()
+            
+            ForEach(model.cars) {car in
+                CarCollapsedView(car: car)
+            }
+        }
+        .background(Color(red: 230/255, green: 230/255, blue: 230/255))
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         CarListView()
+            .environmentObject(ContentModel())
     }
 }
