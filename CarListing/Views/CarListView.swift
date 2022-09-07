@@ -17,7 +17,7 @@ struct CarListView: View {
                 .font(.title)
                 .bold()
             
-            ForEach(model.cars) {car in
+            List(model.cars) {car in
                 CarCollapsedView(car: car)
             }
         }

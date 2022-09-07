@@ -12,93 +12,79 @@ struct CarCollapsedView: View {
     var car: Car
     
     var body: some View {
+        HStack {
             
-        GeometryReader {geo in
+            //Car Image
+            Image(car.image ?? "")
+                .resizable()
+                .scaledToFit()
+                .clipped()
             
-            ZStack {
+            VStack (alignment: .leading) {
                 
-                Rectangle()
-                    .cornerRadius(20)
-                    .foregroundColor(.white)
+                //Name
+                Text("\(car.make ?? "") \(car.model ?? "")")
+                    .font(.title3)
                 
-                HStack {
-                    
-                    //Car Image
-                    Image(car.image ?? "")
-                        .resizable()
-                        .frame(height: geo.size.height)
-                        .clipped()
-
-                    VStack (alignment: .leading) {
-                        
-                        //Name
-                        Text("\(car.make ?? "") \(car.model ?? "")")
-                            .font(.title3)
-                        
-                        //Price
-                        //Text("$ \(String(format: "%.2f", car.marketPrice ?? 0))")
-                        //   .font(.caption)
-                        Text(model.carPrice(price: car.marketPrice ?? 0))
-                            .font(.caption)
-                        
-                        Spacer()
-                        
-                        //Rating
-                        switch car.rating {
-                        case 1:
-                            HStack {
-                                Image(systemName: "star.fill")
-                                Image(systemName: "star")
-                                Image(systemName: "star")
-                                Image(systemName: "star")
-                                Image(systemName: "star")
-                            }
-                        case 2:
-                            HStack {
-                                Image(systemName: "star.fill")
-                                Image(systemName: "star.fill")
-                                Image(systemName: "star")
-                                Image(systemName: "star")
-                                Image(systemName: "star")
-                            }
-                        case 3:
-                            HStack {
-                                Image(systemName: "star.fill")
-                                Image(systemName: "star.fill")
-                                Image(systemName: "star.fill")
-                                Image(systemName: "star")
-                                Image(systemName: "star")
-                            }
-                        case 4:
-                            HStack {
-                                Image(systemName: "star.fill")
-                                Image(systemName: "star.fill")
-                                Image(systemName: "star.fill")
-                                Image(systemName: "star.fill")
-                                Image(systemName: "star")
-                            }
-                        case 5:
-                            HStack {
-                                Image(systemName: "star.fill")
-                                Image(systemName: "star.fill")
-                                Image(systemName: "star.fill")
-                                Image(systemName: "star.fill")
-                                Image(systemName: "star.fill")
-                            }
-                        default:
-                            HStack {
-                                Image(systemName: "star")
-                                Image(systemName: "star")
-                                Image(systemName: "star")
-                                Image(systemName: "star")
-                                Image(systemName: "star")
-                            }
-                        }
+                //Price
+                Text(model.carPrice(price: car.marketPrice ?? 0))
+                    .font(.caption)
+                
+                Spacer()
+                
+                //Rating
+                switch car.rating {
+                case 1:
+                    HStack {
+                        Image(systemName: "star.fill")
+                        Image(systemName: "star")
+                        Image(systemName: "star")
+                        Image(systemName: "star")
+                        Image(systemName: "star")
                     }
-                    .padding()
+                case 2:
+                    HStack {
+                        Image(systemName: "star.fill")
+                        Image(systemName: "star.fill")
+                        Image(systemName: "star")
+                        Image(systemName: "star")
+                        Image(systemName: "star")
+                    }
+                case 3:
+                    HStack {
+                        Image(systemName: "star.fill")
+                        Image(systemName: "star.fill")
+                        Image(systemName: "star.fill")
+                        Image(systemName: "star")
+                        Image(systemName: "star")
+                    }
+                case 4:
+                    HStack {
+                        Image(systemName: "star.fill")
+                        Image(systemName: "star.fill")
+                        Image(systemName: "star.fill")
+                        Image(systemName: "star.fill")
+                        Image(systemName: "star")
+                    }
+                case 5:
+                    HStack {
+                        Image(systemName: "star.fill")
+                        Image(systemName: "star.fill")
+                        Image(systemName: "star.fill")
+                        Image(systemName: "star.fill")
+                        Image(systemName: "star.fill")
+                    }
+                default:
+                    HStack {
+                        Image(systemName: "star")
+                        Image(systemName: "star")
+                        Image(systemName: "star")
+                        Image(systemName: "star")
+                        Image(systemName: "star")
+                    }
                 }
-                .cornerRadius(20)
             }
+            .padding()
         }
     }
 }
