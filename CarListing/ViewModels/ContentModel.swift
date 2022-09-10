@@ -11,9 +11,12 @@ import SwiftUI
 class ContentModel: ObservableObject {
     
     @Published var cars = [Car]()
+    @Published var selectedCar: UUID?
     
     init() {
         getLocalData()
+        
+        selectedCar = cars[0].id
     }
     
     //MARK: Parse the Data

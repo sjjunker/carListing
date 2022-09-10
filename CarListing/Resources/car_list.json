@@ -17,13 +17,13 @@
         "make":"Alpine",
         "marketPrice":225000.0,
         "model":"Roadster",
-        "prosList":["This car is so fast","Jame Bond would love to steal that car","",""],
+        "prosList":["This car is so fast","Jame Bond would love to steal that car"],
         "rating":4
         
     },
     {
         "image":"BMW_330i",
-        "consList":["You can heard the engine over children cry at the back","","You may lose this one if you divorce"],
+        "consList":["You can heard the engine over children cry at the back","You may lose this one if you divorce"],
         "customerPrice":65000.0,
         "make":"BMW",
         "marketPrice":55900.0,
