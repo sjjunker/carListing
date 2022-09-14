@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		961EFF0928D1B1C6004C2456 /* FilterSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961EFF0828D1B1C6004C2456 /* FilterSelectionView.swift */; };
 		963BC9AA28C6974900AF009C /* CarListingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963BC9A928C6974900AF009C /* CarListingApp.swift */; };
 		963BC9AC28C6974900AF009C /* CarListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963BC9AB28C6974900AF009C /* CarListView.swift */; };
 		963BC9AE28C6974B00AF009C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 963BC9AD28C6974B00AF009C /* Assets.xcassets */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		961EFF0828D1B1C6004C2456 /* FilterSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSelectionView.swift; sourceTree = "<group>"; };
 		963BC9A628C6974900AF009C /* CarListing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CarListing.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		963BC9A928C6974900AF009C /* CarListingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarListingApp.swift; sourceTree = "<group>"; };
 		963BC9AB28C6974900AF009C /* CarListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarListView.swift; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 				963BC9AB28C6974900AF009C /* CarListView.swift */,
 				9658EC0628CCBFCC0009D22B /* CarExpandedView.swift */,
 				9658EC0828CCCBE30009D22B /* RatingView.swift */,
+				961EFF0828D1B1C6004C2456 /* FilterSelectionView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -186,6 +189,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9658EC0728CCBFCC0009D22B /* CarExpandedView.swift in Sources */,
+				961EFF0928D1B1C6004C2456 /* FilterSelectionView.swift in Sources */,
 				963BC9AC28C6974900AF009C /* CarListView.swift in Sources */,
 				963BC9C128C752EE00AF009C /* ContentModel.swift in Sources */,
 				963BC9AA28C6974900AF009C /* CarListingApp.swift in Sources */,

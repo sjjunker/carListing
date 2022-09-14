@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct RatingView: View {
-    var car: Car
+    var rating: Int
     
     var body: some View {
         
         //Rating
-        switch car.rating {
+        switch rating {
         case 1:
             HStack {
                 Image(systemName: "star.fill")

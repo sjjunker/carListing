@@ -9,79 +9,74 @@ import SwiftUI
 
 struct CarListView: View {
     @EnvironmentObject var model: ContentModel
-    @State private var filterText = ""
     
     var body: some View {
         
-            VStack {
-
-                NavigationView {
+        NavigationView {
+            
+            //List
+            List (model.cars) {car in
+                
+                VStack (alignment: .leading) {
                     
-                    //List
-                    List (model.cars) {car in
+                    HStack {
                         
-                        VStack (alignment: .leading) {
+                        //Car Image
+                        Image(car.image ?? "")
+                            .resizable()
+                            .scaledToFit()
+                            .clipped()
+                            .cornerRadius(10)
+                        
+                        VStack (alignment: .trailing) {
                             
-                            HStack {
-                                
-                                //Car Image
-                                Image(car.image ?? "")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .clipped()
-                                    .cornerRadius(10)
-                                
-                                VStack (alignment: .trailing) {
-                                    
-                                    //Name
-                                    Text("\(car.make ?? "") \(car.model ?? "")")
-                                        .font(.headline)
-                                    
-                                    //Price
-                                    Text(model.carPrice(price: car.marketPrice ?? 0))
-                                        .font(.caption)
-                                    
-                                    //Rating
-                                    RatingView(car: car)
-                                        .padding(.top, 5)
-                                    
-                                    Spacer()
-                                    
-                                    //Button
-                                    Button  {
-                                        if (model.selectedCar != car.id) {
-                                            model.selectedCar = car.id
-                                        } else {
-                                            model.selectedCar = nil
-                                        }
-                                    } label: {
-                                        if (model.selectedCar != car.id) {
-                                            Text("Show Details")
-                                        } else {
-                                            Text("Hide Details")
-                                        }
-                                    }
+                            //Name
+                            Text("\(car.make ?? "") \(car.model ?? "")")
+                                .font(.headline)
+                            
+                            //Price
+                            Text(model.carPrice(price: car.marketPrice ?? 0))
+                                .font(.caption)
+                            
+                            //Rating
+                            RatingView(rating: car.rating ?? 0)
+                                .padding(.top, 5)
+                            
+                            Spacer()
+                            
+                            //Button
+                            Button  {
+                                if (model.selectedCar != car.id) {
+                                    model.selectedCar = car.id
+                                } else {
+                                    model.selectedCar = nil
                                 }
-                                .padding()
-                            }
-                            
-                            //Expanded View
-                            if car.id == model.selectedCar {
-                                CarExpandedView(car: car)
-                                    .padding(.bottom)
+                            } label: {
+                                if (model.selectedCar != car.id) {
+                                    Text("Show Details")
+                                } else {
+                                    Text("Hide Details")
+                                }
                             }
                         }
-                        .listRowBackground(
-                            Rectangle()
-                                .fill(Color(red: 230/255, green: 230/255, blue: 230/255))
-                                .cornerRadius(10)
-                                .padding(5)
-                        )
-                        .listRowSeparator(.hidden, edges: .all)
+                        .padding()
                     }
-                    .searchable(text: $filterText)
-                    .navigationBarTitle("Car Listing")
+                    
+                    //Expanded View
+                    if car.id == model.selectedCar {
+                        CarExpandedView(car: car)
+                            .padding(.bottom)
+                    }
+                }
+                .listRowBackground(
+                    Rectangle()
+                        .fill(Color(red: 230/255, green: 230/255, blue: 230/255))
+                        .cornerRadius(10)
+                        .padding(5)
+                )
+                .listRowSeparator(.hidden, edges: .all)
             }
+            .navigationBarTitle("Car Listing")
         }
     }
 }

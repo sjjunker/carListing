@@ -49,7 +49,6 @@ struct CarExpandedView: View {
                     }
                 }
             }
-        }
-        
+        }  
     }
 }
