@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CarListView: View {
     @EnvironmentObject var model: ContentModel
+    @State private var filterText = ""
     
     var body: some View {
         
@@ -78,6 +79,7 @@ struct CarListView: View {
                         )
                         .listRowSeparator(.hidden, edges: .all)
                     }
+                    .searchable(text: $filterText)
                     .navigationBarTitle("Car Listing")
             }
         }
