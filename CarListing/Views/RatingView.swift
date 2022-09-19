@@ -12,7 +12,7 @@ struct RatingView: View {
     
     var body: some View {
         
-        //Rating
+        //Select the image for the given rating
         switch rating {
         case 1:
             HStack {

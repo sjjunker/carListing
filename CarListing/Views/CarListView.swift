@@ -4,84 +4,104 @@
 //
 //  Created by Sandi Junker on 9/5/22.
 //
+//TODO: Add FilterSelectionView to the CarListView as a drop down
 
 import SwiftUI
 
 struct CarListView: View {
     @EnvironmentObject var model: ContentModel
+    @State var isHidden = true
     
     var body: some View {
         
         NavigationView {
             
-            VStack {
+            ZStack {
                 
-                //Filter
-                
-                
-                //List
-                List (model.cars) {car in
+                VStack {
                     
-                    VStack (alignment: .leading) {
+                    //TODO: Filter Drop Down
+                    Button ("Filter") {
+                        isHidden = false
+                    }
+                    
+                    //List of cars
+                    List (model.cars) {car in
                         
-                        HStack {
+                        VStack (alignment: .leading) {
                             
-                            //Car Image
-                            Image(car.image ?? "")
-                                .resizable()
-                                .scaledToFit()
-                                .clipped()
-                                .cornerRadius(10)
-                            
-                            VStack (alignment: .trailing) {
+                            HStack {
                                 
-                                //Name
-                                Text("\(car.make ?? "") \(car.model ?? "")")
-                                    .font(.headline)
+                                //Car Image
+                                Image(car.image ?? "")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .clipped()
+                                    .cornerRadius(10)
                                 
-                                //Price
-                                Text(model.carPrice(price: car.marketPrice ?? 0))
-                                    .font(.caption)
-                                
-                                //Rating
-                                RatingView(rating: car.rating ?? 0)
-                                    .padding(.top, 5)
-                                
-                                Spacer()
-                                
-                                //Button to show/hide details
-                                Button  {
-                                    if (model.selectedCar != car.id) {
-                                        model.selectedCar = car.id
-                                    } else {
-                                        model.selectedCar = nil
-                                    }
-                                } label: {
-                                    if (model.selectedCar != car.id) {
-                                        Text("Show Details")
-                                    } else {
-                                        Text("Hide Details")
+                                VStack (alignment: .trailing) {
+                                    
+                                    //Name
+                                    Text("\(car.make ?? "") \(car.model ?? "")")
+                                        .font(.headline)
+                                    
+                                    //Price
+                                    Text(model.carPrice(price: car.marketPrice ?? 0))
+                                        .font(.caption)
+                                    
+                                    //Rating
+                                    RatingView(rating: car.rating ?? 0)
+                                        .padding(.top, 5)
+                                    
+                                    Spacer()
+                                    
+                                    //Button to show/hide details
+                                    Button  {
+                                        if (model.selectedCar != car.id) {
+                                            model.selectedCar = car.id
+                                        } else {
+                                            model.selectedCar = nil
+                                        }
+                                    } label: {
+                                        if (model.selectedCar != car.id) {
+                                            Text("Show Details")
+                                        } else {
+                                            Text("Hide Details")
+                                        }
                                     }
                                 }
+                                .padding()
                             }
-                            .padding()
+                            
+                            //Expanded View
+                            if car.id == model.selectedCar {
+                                CarExpandedView(car: car)
+                                    .padding(.bottom)
+                            }
                         }
-                        
-                        //Expanded View
-                        if car.id == model.selectedCar {
-                            CarExpandedView(car: car)
-                                .padding(.bottom)
-                        }
+                        .listRowBackground(
+                            Rectangle()
+                                .fill(Color(red: 230/255, green: 230/255, blue: 230/255))
+                                .cornerRadius(10)
+                                .padding(5)
+                        )
+                        .listRowSeparator(.hidden, edges: .all)
                     }
-                    .listRowBackground(
-                        Rectangle()
-                            .fill(Color(red: 230/255, green: 230/255, blue: 230/255))
-                            .cornerRadius(10)
-                            .padding(5)
-                    )
-                    .listRowSeparator(.hidden, edges: .all)
+                    .navigationBarTitle("Car Listing")
                 }
-                .navigationBarTitle("Car Listing")
+                
+                
+                if !isHidden {
+                    
+                    ZStack {
+                        
+                        //Show the filters
+                        Rectangle()
+                        
+                        FilterSelectionView(isHidden: $isHidden)
+                        
+                    }
+                }
             }
         }
     }

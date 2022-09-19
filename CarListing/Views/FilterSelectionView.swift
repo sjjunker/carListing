@@ -9,10 +9,11 @@ import SwiftUI
 
 struct FilterSelectionView: View {
     @EnvironmentObject var model: ContentModel
-    private var ratingsList = [1, 2, 3, 4, 5]
+    var ratingsList = [1, 2, 3, 4, 5]
     @State var makeSelection: [String] = []
     @State var modelSelection: [String] = []
     @State var ratingSelection: [Int] = []
+    @Binding var isHidden: Bool
     
     var body: some View {
         VStack {
@@ -173,7 +174,9 @@ struct FilterSelectionView: View {
         
         //TODO: Apply Button
         //Goes back to CarListView
-        
+        Button ("Apply") {
+            isHidden = true
+        }
     }
 }
 
