@@ -4,7 +4,8 @@
 //
 //  Created by Sandi Junker on 9/5/22.
 //
-//TODO: Add FilterSelectionView to the CarListView as a drop down
+//TODO: Change FilterSelectionView to a drop down
+//TODO: Bring in bound filtered array of cars and replace model.cars with it in the List
 
 import SwiftUI
 
@@ -20,7 +21,7 @@ struct CarListView: View {
                 
                 VStack {
                     
-                    //TODO: Filter Drop Down
+                    //Filter Drop Down
                     Button ("Filter") {
                         isHidden = false
                     }
