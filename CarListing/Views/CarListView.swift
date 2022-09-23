@@ -4,12 +4,21 @@
 //
 //  Created by Sandi Junker on 9/5/22.
 //
-//TODO: Change FilterSelectionView to a drop down
 //TODO: Bring in bound filtered array of cars and replace model.cars with it in the List
 
 import SwiftUI
 
+extension AnyTransition {
+    static var moveAndFade: AnyTransition {
+        AnyTransition
+            .move(edge: .top)
+            .combined(with: .opacity)
+    }
+}
+
+
 struct CarListView: View {
+    
     @EnvironmentObject var model: ContentModel
     @State var isHidden = true
     
@@ -23,7 +32,9 @@ struct CarListView: View {
                     
                     //Filter Drop Down
                     Button ("Filter") {
-                        isHidden = false
+                        withAnimation {
+                            isHidden.toggle()
+                        }
                     }
                     
                     //List of cars
@@ -94,14 +105,8 @@ struct CarListView: View {
                 
                 if !isHidden {
                     
-                    ZStack {
-                        
-                        //Show the filters
-                        Rectangle()
-                        
-                        FilterSelectionView(isHidden: $isHidden)
-                        
-                    }
+                    FilterSelectionView(isHidden: $isHidden)
+                            .transition(.moveAndFade)
                 }
             }
         }

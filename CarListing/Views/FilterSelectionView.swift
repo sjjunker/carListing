@@ -19,185 +19,199 @@ struct FilterSelectionView: View {
     var body: some View {
         
         
-        VStack {
+        ZStack {
             
-            //MARK: Make
-            VStack {
-                Text("Make")
-                
-                List (model.cars) {car in
-                    
-                    HStack {
-                        
-                        Button {
-                            
-                            
-                            if car.make != nil {
-                                
-                                //Add a make filter if it was not already selected
-                                if !(makeSelection.contains(car.make!)) {
-                                    
-                                    makeSelection.append(car.make!)
-                                    
-                                    //Remove a make Filter if the checkbox was already selected
-                                } else if makeSelection.contains(car.make!) {
-                                    
-                                    let index = makeSelection.firstIndex(of: car.make!)
-                                    makeSelection.remove(at: index!)
-                                    
-                                }
-                            }
-                            
-                            //Re-filter the filtered car array
-                            filteredCars = self.filterList()
-                            
-                        } label: {
-                            
-                            if car.make != nil {
-                                
-                                //Check the box if the filter is selected
-                                if makeSelection.contains(car.make!) {
-                                    Image(systemName: "checkmark.square")
-                                    
-                                    //Uncheck the box if the filter is unselected
-                                } else {
-                                    Image(systemName: "square")
-                                }
-                            }
-                        }
-                        
-                        
-                        //List Available makes
-                        Text(car.make ?? "" )
-                        
-                    }
-                }
-                .padding(.horizontal, -20)
-            }
+            Rectangle()
+                .foregroundColor(.white)
             
-            //MARK: Model
             VStack {
                 
-                Text("Model")
-                
-                List (model.cars) {car in
+                //MARK: Make
+                VStack {
+                    Text("Make")
                     
-                    HStack {
+                    List (model.cars) {car in
                         
-                        Button {
+                        HStack {
                             
-                            
-                            if car.model != nil {
+                            Button {
                                 
-                                //Add a model filter
-                                if !(modelSelection.contains(car.model!)) {
+                                
+                                if car.make != nil {
                                     
-                                    modelSelection.append(car.model!)
-                                    
-                                    
-                                    //Remove a model Filter
-                                } else if modelSelection.contains(car.model!) {
-                                    
-                                    let index = modelSelection.firstIndex(of: car.model!)
-                                    modelSelection.remove(at: index!)
-                                    
+                                    //Add a make filter if it was not already selected
+                                    if !(makeSelection.contains(car.make!)) {
+                                        
+                                        makeSelection.append(car.make!)
+                                        
+                                        //Remove a make Filter if the checkbox was already selected
+                                    } else if makeSelection.contains(car.make!) {
+                                        
+                                        let index = makeSelection.firstIndex(of: car.make!)
+                                        makeSelection.remove(at: index!)
+                                        
+                                    }
                                 }
                                 
                                 //Re-filter the filtered car array
                                 filteredCars = self.filterList()
+                                
+                            } label: {
+                                
+                                if car.make != nil {
+                                    
+                                    //Check the box if the filter is selected
+                                    if makeSelection.contains(car.make!) {
+                                        Image(systemName: "checkmark.square")
+                                        
+                                        //Uncheck the box if the filter is unselected
+                                    } else {
+                                        Image(systemName: "square")
+                                    }
+                                }
                             }
                             
-                        } label: {
                             
-                            if car.model != nil {
+                            //List Available makes
+                            Text(car.make ?? "" )
+                            
+                        }
+                    }
+                    .listStyle(PlainListStyle())
+                }
+                
+                //MARK: Model
+                VStack {
+                    
+                    Text("Model")
+                    
+                    List (model.cars) {car in
+                        
+                        HStack {
+                            
+                            Button {
                                 
-                                //Check the box if the filter is selected
-                                if modelSelection.contains(car.model!) {
-                                    Image(systemName: "checkmark.square")
+                                
+                                if car.model != nil {
                                     
-                                    //Uncheck the box if the filter is unselected
+                                    //Add a model filter
+                                    if !(modelSelection.contains(car.model!)) {
+                                        
+                                        modelSelection.append(car.model!)
+                                        
+                                        
+                                        //Remove a model Filter
+                                    } else if modelSelection.contains(car.model!) {
+                                        
+                                        let index = modelSelection.firstIndex(of: car.model!)
+                                        modelSelection.remove(at: index!)
+                                        
+                                    }
+                                    
+                                    //Re-filter the filtered car array
+                                    filteredCars = self.filterList()
+                                }
+                                
+                            } label: {
+                                
+                                if car.model != nil {
+                                    
+                                    //Check the box if the filter is selected
+                                    if modelSelection.contains(car.model!) {
+                                        Image(systemName: "checkmark.square")
+                                        
+                                        //Uncheck the box if the filter is unselected
+                                    } else {
+                                        Image(systemName: "square")
+                                    }
+                                }
+                            }
+                            
+                            //List Available makes
+                            Text(car.model ?? "" )
+                            
+                        }
+                    }
+                    .listStyle(PlainListStyle())
+                }
+                
+                //MARK: Rating
+                VStack {
+                    
+                    Text("Rating")
+                    
+                    //Toggle Selection
+                    
+                    //List Ratings
+                    List (ratingsList, id: \.self) {rating in
+                        
+                        HStack {
+                            
+                            Button {
+                                
+                                //Check whether the rating has been selected as a filter
+                                if !(ratingSelection.contains(rating)) {
+                                    
+                                    //Add the filter
+                                    ratingSelection.append(rating)
+                                    
+                                } else if ratingSelection.contains(rating) {
+                                    
+                                    //Remove the filter
+                                    let index = ratingSelection.firstIndex(of: rating)
+                                    if index != nil {
+                                        ratingSelection.remove(at: index!)
+                                    }
+                                }
+                                
+                                //Re-filter the filtered car array
+                                filteredCars = self.filterList()
+                                
+                            } label: {
+                                
+                                //Show checked or unchecked according to filter selection
+                                if ratingSelection.contains(rating) {
+                                    Image(systemName: "checkmark.square")
                                 } else {
                                     Image(systemName: "square")
                                 }
                             }
+                            
+                            //Ratings
+                            RatingView(rating: rating)
                         }
-                        
-                        //List Available makes
-                        Text(car.model ?? "" )
-                        
                     }
+                    .listStyle(PlainListStyle())
                 }
-                .padding(.horizontal, -20)
-            }
-            
-            //MARK: Rating
-            VStack {
                 
-                Text("Rating")
-                
-                //Toggle Selection
-                
-                //List Ratings
-                List (ratingsList, id: \.self) {rating in
+                //Preview filtered list of cars
+                VStack {
+                    Text("Preview")
                     
-                    HStack {
-                        
-                        Button {
-                            
-                            //Check whether the rating has been selected as a filter
-                            if !(ratingSelection.contains(rating)) {
-                                
-                                //Add the filter
-                                ratingSelection.append(rating)
-                                
-                            } else if ratingSelection.contains(rating) {
-                                
-                                //Remove the filter
-                                let index = ratingSelection.firstIndex(of: rating)
-                                if index != nil {
-                                    ratingSelection.remove(at: index!)
-                                }
-                            }
-                            
-                            //Re-filter the filtered car array
-                            filteredCars = self.filterList()
-                            
-                        } label: {
-                            
-                            //Show checked or unchecked according to filter selection
-                            if ratingSelection.contains(rating) {
-                                Image(systemName: "checkmark.square")
-                            } else {
-                                Image(systemName: "square")
-                            }
+                    List (filteredCars) {car in
+                        HStack {
+                            Text(car.make ?? "")
+                            Text(car.model ?? "")
+                            Spacer()
+                            RatingView(rating: car.rating ?? 0)
                         }
-                        
-                        //Ratings
-                        RatingView(rating: rating)
+                    }
+                    .listStyle(PlainListStyle())
+                }
+                
+                //MARK: Return to Car List
+                Button ("Apply") {
+                    withAnimation {
+                        isHidden.toggle()
                     }
                 }
-                .padding(.horizontal, -20)
             }
-            
-            //Preview filtered list of cars
-            List (filteredCars) {car in
-                HStack {
-                    Text(car.model ?? "")
-                    Text(car.make ?? "")
-                    RatingView(rating: car.rating ?? 0)
+            .onAppear(perform: {
+                if filteredCars.isEmpty {
+                    filteredCars = model.cars
                 }
-            }
-            
-            //MARK: Return to Car List
-            Button ("Apply") {
-                isHidden = true
-            }
-        }
-        .onAppear(perform: {
-            if filteredCars.isEmpty {
-                filteredCars = model.cars
-            }
         })
+        }
     }
     
     //Return a new filtered array of cars
