@@ -21,6 +21,7 @@ struct CarListView: View {
     
     @EnvironmentObject var model: ContentModel
     @State var isHidden = true
+    @State var filteredCars: [Car] = []
     
     var body: some View {
         
@@ -33,12 +34,12 @@ struct CarListView: View {
                     //Filter Drop Down
                     Button ("Filter") {
                         withAnimation {
-                            isHidden.toggle()
+                            isHidden = false
                         }
                     }
                     
                     //List of cars
-                    List (model.cars) {car in
+                    List (filteredCars) {car in
                         
                         VStack (alignment: .leading) {
                             
@@ -102,20 +103,17 @@ struct CarListView: View {
                     .navigationBarTitle("Car Listing")
                 }
                 
-                
-                if !isHidden {
+                //Call the filter dropdown
+                if isHidden == false {
                     
-                    FilterSelectionView(isHidden: $isHidden)
-                            .transition(.moveAndFade)
+                    FilterSelectionView(filteredCars: $filteredCars, isHidden: $isHidden)
+                        .transition(.moveAndFade)
                 }
             }
         }
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        CarListView()
-            .environmentObject(ContentModel())
+        //Set the filteredCars array
+        .onAppear(perform: {
+            filteredCars = model.cars
+        })
     }
 }

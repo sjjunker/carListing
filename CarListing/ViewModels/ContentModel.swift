@@ -12,6 +12,9 @@ class ContentModel: ObservableObject {
     
     @Published var cars = [Car]()
     @Published var selectedCar: UUID?
+    @Published var makeSelection: [String] = []
+    @Published var modelSelection: [String] = []
+    @Published var ratingSelection: [Int] = []
     
     init() {
         getLocalData()

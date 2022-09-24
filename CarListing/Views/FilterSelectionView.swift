@@ -8,13 +8,12 @@
 import SwiftUI
 
 struct FilterSelectionView: View {
+    
     @EnvironmentObject var model: ContentModel
-    var ratingsList = [1, 2, 3, 4, 5]
-    @State var makeSelection: [String] = []
-    @State var modelSelection: [String] = []
-    @State var ratingSelection: [Int] = []
+    @Binding var filteredCars: [Car]
     @Binding var isHidden: Bool
-    @State var filteredCars: [Car] = []
+    
+    var ratingsList = [1, 2, 3, 4, 5]
     
     var body: some View {
         
@@ -36,19 +35,18 @@ struct FilterSelectionView: View {
                             
                             Button {
                                 
-                                
                                 if car.make != nil {
                                     
                                     //Add a make filter if it was not already selected
-                                    if !(makeSelection.contains(car.make!)) {
+                                    if !(model.makeSelection.contains(car.make!)) {
                                         
-                                        makeSelection.append(car.make!)
+                                        model.makeSelection.append(car.make!)
                                         
                                         //Remove a make Filter if the checkbox was already selected
-                                    } else if makeSelection.contains(car.make!) {
+                                    } else if model.makeSelection.contains(car.make!) {
                                         
-                                        let index = makeSelection.firstIndex(of: car.make!)
-                                        makeSelection.remove(at: index!)
+                                        let index = model.makeSelection.firstIndex(of: car.make!)
+                                        model.makeSelection.remove(at: index!)
                                         
                                     }
                                 }
@@ -61,7 +59,7 @@ struct FilterSelectionView: View {
                                 if car.make != nil {
                                     
                                     //Check the box if the filter is selected
-                                    if makeSelection.contains(car.make!) {
+                                    if model.makeSelection.contains(car.make!) {
                                         Image(systemName: "checkmark.square")
                                         
                                         //Uncheck the box if the filter is unselected
@@ -95,16 +93,16 @@ struct FilterSelectionView: View {
                                 if car.model != nil {
                                     
                                     //Add a model filter
-                                    if !(modelSelection.contains(car.model!)) {
+                                    if !(model.modelSelection.contains(car.model!)) {
                                         
-                                        modelSelection.append(car.model!)
+                                        model.modelSelection.append(car.model!)
                                         
                                         
                                         //Remove a model Filter
-                                    } else if modelSelection.contains(car.model!) {
+                                    } else if model.modelSelection.contains(car.model!) {
                                         
-                                        let index = modelSelection.firstIndex(of: car.model!)
-                                        modelSelection.remove(at: index!)
+                                        let index = model.modelSelection.firstIndex(of: car.model!)
+                                        model.modelSelection.remove(at: index!)
                                         
                                     }
                                     
@@ -117,7 +115,7 @@ struct FilterSelectionView: View {
                                 if car.model != nil {
                                     
                                     //Check the box if the filter is selected
-                                    if modelSelection.contains(car.model!) {
+                                    if model.modelSelection.contains(car.model!) {
                                         Image(systemName: "checkmark.square")
                                         
                                         //Uncheck the box if the filter is unselected
@@ -150,17 +148,17 @@ struct FilterSelectionView: View {
                             Button {
                                 
                                 //Check whether the rating has been selected as a filter
-                                if !(ratingSelection.contains(rating)) {
+                                if !(model.ratingSelection.contains(rating)) {
                                     
                                     //Add the filter
-                                    ratingSelection.append(rating)
+                                    model.ratingSelection.append(rating)
                                     
-                                } else if ratingSelection.contains(rating) {
+                                } else if model.ratingSelection.contains(rating) {
                                     
                                     //Remove the filter
-                                    let index = ratingSelection.firstIndex(of: rating)
+                                    let index = model.ratingSelection.firstIndex(of: rating)
                                     if index != nil {
-                                        ratingSelection.remove(at: index!)
+                                        model.ratingSelection.remove(at: index!)
                                     }
                                 }
                                 
@@ -170,7 +168,7 @@ struct FilterSelectionView: View {
                             } label: {
                                 
                                 //Show checked or unchecked according to filter selection
-                                if ratingSelection.contains(rating) {
+                                if model.ratingSelection.contains(rating) {
                                     Image(systemName: "checkmark.square")
                                 } else {
                                     Image(systemName: "square")
@@ -184,7 +182,7 @@ struct FilterSelectionView: View {
                     .listStyle(PlainListStyle())
                 }
                 
-                //Preview filtered list of cars
+                //MARK: Preview filtered list of cars
                 VStack {
                     Text("Preview")
                     
@@ -199,18 +197,32 @@ struct FilterSelectionView: View {
                     .listStyle(PlainListStyle())
                 }
                 
-                //MARK: Return to Car List
-                Button ("Apply") {
-                    withAnimation {
-                        isHidden.toggle()
+                HStack {
+                    
+                    //MARK: Clear Filters
+                    Button ("Clear Filters") {
+                        
+                        //Clear the filters
+                        model.makeSelection.removeAll()
+                        model.modelSelection.removeAll()
+                        model.ratingSelection.removeAll()
+                        
+                        //Reset the fliteredCars array
+                        filteredCars = model.cars
+                    }
+                    
+                    Spacer()
+                    
+                    //MARK: Return to Car List
+                    Button ("Apply") {
+        
+                        //Create animation and go back to CarListView
+                        withAnimation {
+                            isHidden = true
+                        }
                     }
                 }
             }
-            .onAppear(perform: {
-                if filteredCars.isEmpty {
-                    filteredCars = model.cars
-                }
-        })
         }
     }
     
@@ -218,45 +230,44 @@ struct FilterSelectionView: View {
     func filterList () -> [Car] {
         
         //All filters
-        if !makeSelection.isEmpty && !modelSelection.isEmpty && !ratingSelection.isEmpty {
+        if !model.makeSelection.isEmpty && !model.modelSelection.isEmpty && !model.ratingSelection.isEmpty {
             
-            return model.cars.filter( {makeSelection.contains($0.make!) && modelSelection.contains($0.model!) && ratingSelection.contains($0.rating!)})
+            return model.cars.filter( {model.makeSelection.contains($0.make!) && model.modelSelection.contains($0.model!) && model.ratingSelection.contains($0.rating!)})
             
             //No make filter
-        } else if makeSelection.isEmpty && !modelSelection.isEmpty && !ratingSelection.isEmpty {
+        } else if model.makeSelection.isEmpty && !model.modelSelection.isEmpty && !model.ratingSelection.isEmpty {
             
-            return model.cars.filter( {modelSelection.contains($0.model!) && ratingSelection.contains($0.rating!)})
+            return model.cars.filter( {model.modelSelection.contains($0.model!) && model.ratingSelection.contains($0.rating!)})
             
             //No model filter
-        } else if !makeSelection.isEmpty && modelSelection.isEmpty && !ratingSelection.isEmpty {
+        } else if !model.makeSelection.isEmpty && model.modelSelection.isEmpty && !model.ratingSelection.isEmpty {
             
-            return model.cars.filter( {makeSelection.contains($0.make!) && ratingSelection.contains($0.rating!)})
+            return model.cars.filter( {model.makeSelection.contains($0.make!) && model.ratingSelection.contains($0.rating!)})
             
             //No rating filter
-        } else if !makeSelection.isEmpty && !modelSelection.isEmpty && ratingSelection.isEmpty {
+        } else if !model.makeSelection.isEmpty && !model.modelSelection.isEmpty && model.ratingSelection.isEmpty {
             
-            return model.cars.filter( {makeSelection.contains($0.make!) && modelSelection.contains($0.model!)})
+            return model.cars.filter( {model.makeSelection.contains($0.make!) && model.modelSelection.contains($0.model!)})
             
             //Only rating filter
-        } else if makeSelection.isEmpty && modelSelection.isEmpty && !ratingSelection.isEmpty {
+        } else if model.makeSelection.isEmpty && model.modelSelection.isEmpty && !model.ratingSelection.isEmpty {
             
-            return model.cars.filter( {ratingSelection.contains($0.rating!)})
+            return model.cars.filter( {model.ratingSelection.contains($0.rating!)})
             
             //Only model filter
-        } else if makeSelection.isEmpty && !modelSelection.isEmpty && ratingSelection.isEmpty {
+        } else if model.makeSelection.isEmpty && !model.modelSelection.isEmpty && model.ratingSelection.isEmpty {
             
-            return model.cars.filter( {modelSelection.contains($0.model!)})
+            return model.cars.filter( {model.modelSelection.contains($0.model!)})
             
             //Only make filter
-        } else if !makeSelection.isEmpty && modelSelection.isEmpty && ratingSelection.isEmpty {
+        } else if !model.makeSelection.isEmpty && model.modelSelection.isEmpty && model.ratingSelection.isEmpty {
             
-            return model.cars.filter( {makeSelection.contains($0.make!)})
+            return model.cars.filter( {model.makeSelection.contains($0.make!)})
             
             //No filters
         } else {
             
             return model.cars
-            
         }
     }
 }
