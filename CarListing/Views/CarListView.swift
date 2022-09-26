@@ -4,7 +4,6 @@
 //
 //  Created by Sandi Junker on 9/5/22.
 //
-//TODO: Bring in bound filtered array of cars and replace model.cars with it in the List
 
 import SwiftUI
 
@@ -32,10 +31,15 @@ struct CarListView: View {
                 VStack {
                     
                     //Filter Drop Down
-                    Button ("Filter") {
-                        withAnimation {
-                            isHidden = false
+                    HStack {
+                        Spacer()
+                        
+                        Button ("Filter") {
+                            withAnimation {
+                                isHidden = false
+                            }
                         }
+                        .padding(.horizontal)
                     }
                     
                     //List of cars

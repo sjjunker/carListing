@@ -22,12 +22,14 @@ struct FilterSelectionView: View {
             
             Rectangle()
                 .foregroundColor(.white)
+                .cornerRadius(10)
             
             VStack {
                 
                 //MARK: Make
                 VStack {
                     Text("Make")
+                        .bold()
                     
                     List (model.cars) {car in
                         
@@ -82,6 +84,7 @@ struct FilterSelectionView: View {
                 VStack {
                     
                     Text("Model")
+                        .bold()
                     
                     List (model.cars) {car in
                         
@@ -137,6 +140,7 @@ struct FilterSelectionView: View {
                 VStack {
                     
                     Text("Rating")
+                        .bold()
                     
                     //Toggle Selection
                     
@@ -185,6 +189,7 @@ struct FilterSelectionView: View {
                 //MARK: Preview filtered list of cars
                 VStack {
                     Text("Preview")
+                        .bold()
                     
                     List (filteredCars) {car in
                         HStack {
@@ -210,6 +215,7 @@ struct FilterSelectionView: View {
                         //Reset the fliteredCars array
                         filteredCars = model.cars
                     }
+                    .padding()
                     
                     Spacer()
                     
@@ -221,6 +227,7 @@ struct FilterSelectionView: View {
                             isHidden = true
                         }
                     }
+                    .padding()
                 }
             }
         }
